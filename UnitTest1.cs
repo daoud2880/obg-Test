@@ -36,11 +36,17 @@ public class UnitTest1
     public void ValidatePrice()
     {
         Book exactly0 = new Book() { Id = 1, Price = 0, Title = "Test" };
-        Assert.AreEqual(0,exactly0.Price);
-
         Book negativePrice = new Book() { Id = 2, Price = -1, Title = "Test2" };
-        Book overPrice = new Book() { Id = 3, Price = 1400, Title = "test3" };
+        Book book1 = new Book() { Id = 4, Price = 1, Title = "test4" };
+        Book overPrice = new Book() { Id = 3, Price = 1201, Title = "test3" };
+        Book rightUnderMax = new Book() { Id = 5, Price = 1199, Title = "Test5" };
+        Book exactly1200 = new Book() { Id = 6, Price = 1200, Title = "test7" };
+
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => negativePrice.ValidatePrice());
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => overPrice.ValidatePrice());
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => exactly0.ValidatePrice());
+        book1.ValidatePrice();
+        rightUnderMax.ValidatePrice();
+        exactly1200.ValidatePrice();
     }
 }
