@@ -49,4 +49,51 @@ public class UnitTest1
         rightUnderMax.ValidatePrice();
         exactly1200.ValidatePrice();
     }
+
+    [TestMethod]
+    public void ValidateGet()
+    {
+        //Arrange
+        BooksRepository books = new BooksRepository();
+        //Act
+        List<Book> booksTest = (List<Book>)books.Get();
+        //Assert
+        Assert.AreEqual(5, booksTest.Count);
+        Assert.AreEqual("Narnia", booksTest[0].Title);
+        Assert.AreEqual(100, booksTest[0].Price);
+    }
+
+    [TestMethod]
+    public void ValidateGetById()
+    {
+        //arrange
+        BooksRepository c = new BooksRepository();
+        //Act
+        Book? book = c.GetById(1);
+        //assert
+        Assert.IsNotNull(book);
+        Assert.AreEqual("Narnia", book.Title);
+        Assert.AreEqual(100, book.Price);
+        Assert.AreEqual(1, book.Id);
+    }
+
+    [TestMethod]
+    public void ValidateAdd()
+    {
+        //Arrange
+        BooksRepository c = new BooksRepository();
+        //Act
+        Book newBook = new Book()
+        {
+            Id = 4,
+            Title = "Think and grow rich",
+            Price = 800
+        };
+        Book added = c.AddBook(newBook);
+        //Assert
+        Assert.AreNotEqual(4, added.Id);
+        Assert.AreEqual(800, added.Price);
+        Assert.AreEqual("Think and grow rich", added.Title);
+        Assert.AreEqual(6, added.Id);
+    }
 }
